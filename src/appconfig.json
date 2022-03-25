@@ -4,7 +4,7 @@
     "appUrl": "./index.html",
     "configUrl": "./appconfig.json",
     "iconUrl": "./images/Treasure_Trail_collection_log.png",
-    "defaultWidth": 575,
+    "defaultWidth": 580,
     "defaultHeight": 785,
 	"minWidth": 250,
 	"minHeight": 180,
