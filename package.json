@@ -4,7 +4,8 @@
 		"watch": "npm run build -- --watch"
 	},
 	"dependencies": {
-		"@alt1/base": "^1.0.0-alpha.2"
+		"@alt1/base": "^1.0.0-alpha.2",
+		"resemblejs": "^4.1.0"
 	},
 	"devDependencies": {
 		"@alt1/imagedata-loader": "^1.0.0-alpha.2",
