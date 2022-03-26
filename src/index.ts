@@ -3,8 +3,8 @@
 import * as a1lib from "@alt1/base";
 import { ImgRef } from "@alt1/base";
 import * as resemble from "resemblejs";
-import lsdb from '../scripts/LocalStorageInit.json'
-import items from '../images/ItemsAndImages.json'
+import * as lsdb from '../JSONs/LocalStorageInit.json'
+import * as items from '../JSONs/ItemsAndImages.json'
 
 //tell webpack to add index.html and appconfig.json to output
 require("!file-loader?name=[name].[ext]!./index.html");
@@ -18,7 +18,7 @@ export function init(){
 	var keys = Object.keys(lsdb);
 	if(localStorage.getItem("Checked button") == null){ // If doesn't exist yet
 		console.log("Defaulting button to easy...");
-		const ele = document.getElementById("easy") as HTMLInputElement
+		const ele = document.getElementById("easy") as HTMLInputElement;
 		ele.checked = true;
 		document.getElementById('clue_tier').textContent = "Easy";
 		localStorage.setItem("Checked button", "easy");
@@ -26,7 +26,7 @@ export function init(){
 	else{ // If it does, set the button and span
 		console.log("Setting previously set radio button: " + localStorage.getItem("Checked button") + "...");
 		var temp = localStorage.getItem("Checked button");
-		const ele = document.getElementById(temp) as HTMLInputElement
+		const ele = document.getElementById(temp) as HTMLInputElement;
 		ele.checked = true;
 		document.getElementById('clue_tier').textContent = temp[0].toUpperCase() + temp.slice(1).toLowerCase();
 	}
@@ -43,7 +43,7 @@ export function init(){
 
 export function changeClueTierSpan(id){
 	// Set the clue_tier span for the checked box
-	console.log("Setting button to "+(id[0].toUpperCase() + id.slice(1).toLowerCase())+"...")
+	console.log("Setting button to "+(id[0].toUpperCase() + id.slice(1).toLowerCase())+"...");
 	document.getElementById('clue_tier').textContent = id[0].toUpperCase() + id.slice(1).toLowerCase();
 	localStorage.setItem("Checked button", id);
 }
@@ -54,7 +54,7 @@ export function changeClueTierSpan(id){
 //this function is async, so you cant acccess the images instantly but generally takes <20ms
 //use `await imgs.promise` if you want to use the images as soon as they are loaded
 var imgs = a1lib.ImageDetect.webpackImages({
-	homeport: require("./homebutton.data.png")
+	homeport: require("../images/TrailComplete.data.png")
 });
 
 //listen for pasted (ctrl-v) images, usually used in the browser version of an app
