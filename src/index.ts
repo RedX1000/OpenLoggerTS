@@ -2,13 +2,51 @@
 //also gives your editor info about the window.alt1 api
 import * as a1lib from "@alt1/base";
 import { ImgRef } from "@alt1/base";
+import * as resemble from "resemblejs";
+import lsdb from '../scripts/LocalStorageInit.json'
+import items from '../images/ItemsAndImages.json'
 
 //tell webpack to add index.html and appconfig.json to output
 require("!file-loader?name=[name].[ext]!./index.html");
 require("!file-loader?name=[name].[ext]!./appconfig.json");
 
+export function refresh(){
+	location.reload();
+}
 
-var output = document.getElementById("output");
+export function init(){
+	var keys = Object.keys(lsdb);
+	if(localStorage.getItem("Checked button") == null){ // If doesn't exist yet
+		console.log("Defaulting button to easy...");
+		const ele = document.getElementById("easy") as HTMLInputElement
+		ele.checked = true;
+		document.getElementById('clue_tier').textContent = "Easy";
+		localStorage.setItem("Checked button", "easy");
+	}
+	else{ // If it does, set the button and span
+		console.log("Setting previously set radio button: " + localStorage.getItem("Checked button") + "...");
+		var temp = localStorage.getItem("Checked button");
+		const ele = document.getElementById(temp) as HTMLInputElement
+		ele.checked = true;
+		document.getElementById('clue_tier').textContent = temp[0].toUpperCase() + temp.slice(1).toLowerCase();
+	}
+	console.log("Radio buttons initialized.\n ");
+
+	//  Initializing the rest of the LocalStorage
+	console.log("Initializing LocalStorage...");
+	for(let i = 0; i < keys.length; i++)
+		if(!(localStorage.getItem(keys[i]))) // If doesn't exist, add it
+			localStorage.setItem(keys[i], JSON.stringify(lsdb[keys[i]]));
+
+	console.log("LocalStorage initialized.\n ");
+}
+
+export function changeClueTierSpan(id){
+	// Set the clue_tier span for the checked box
+	console.log("Setting button to "+(id[0].toUpperCase() + id.slice(1).toLowerCase())+"...")
+	document.getElementById('clue_tier').textContent = id[0].toUpperCase() + id.slice(1).toLowerCase();
+	localStorage.setItem("Checked button", id);
+}
 
 //loads all images as raw pixel data async, images have to be saved as *.data.png
 //this also takes care of metadata headers in the image that make browser load the image
@@ -29,6 +67,7 @@ a1lib.PasteInput.listen(img => {
 //You can reach exports on window.TEST because of
 //config.makeUmd("testpackage", "TEST"); in webpack.config.ts
 export function capture() {
+	console.log("in capture")
 	if (!window.alt1) {
 		//output.insertAdjacentHTML("beforeend", `<div>You need to run this page in alt1 to capture the screen</div>`);
 		return;

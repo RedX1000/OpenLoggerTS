@@ -3,53 +3,13 @@
 	<head>
 		<script src="./index.bundle.js"></script>
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-		<script type="text/javascript" src="../scripts/LocalStorageInit.js"></script>
+		<!-- <script type="text/typescript" src="../scripts/LocalStorageInit.ts"></script> -->
 		<script type="text/javascript" src="../images/ItemsAndImages.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="../styles/nis/nis.css"/>
 		<link rel="stylesheet" type="text/css" href="../styles/nis/alt1-currentskin/skinstyle.css"/><!--stylesheet with all nis styles (Will be part of public resources so feel free to copy/paste)-->
-		
-		<script>
-			// Screw it, I don't care if this is cheating,
-			// I can't get my init() to work :(
-			function refresh(){
-				location.reload();
-			}
-
-			function init(){
-				var keys = Object.keys(lsdb);
-    			if(localStorage.getItem("Checked button") == null){ // If doesn't exist yet
-    			    console.log("Defaulting button to easy...");
-    			    document.getElementById("easy").checked = true;
-    			    document.getElementById('clue_tier').textContent = "Easy";
-    			    localStorage.setItem("Checked button", "easy");
-    			}
-    			else{ // If it does, set the button and span
-    			    console.log("Setting previously set radio button: " + localStorage.getItem("Checked button") + "...");
-    			    var temp = localStorage.getItem("Checked button");
-    			    document.getElementById(temp).checked = true;
-    			    document.getElementById('clue_tier').textContent = temp[0].toUpperCase() + temp.slice(1).toLowerCase();
-    			}
-    			console.log("Radio buttons initialized.\n ");
-
-    			//  Initializing the rest of the LocalStorage
-    			console.log("Initializing LocalStorage...");
-    			for(i=0; i < keys.length; i++)
-    			    if(!(localStorage.getItem(keys[i]))) // If doesn't exist, add it
-    			        localStorage.setItem(keys[i], JSON.stringify(lsdb[keys[i]]));
-
-    			console.log("LocalStorage initialized.\n ");
-			}
-
-			function changeClueTierSpan(id){
-			    // Set the clue_tier span for the checked box
-			    document.getElementById('clue_tier').textContent = id[0].toUpperCase() + id.slice(1).toLowerCase();
-			    localStorage.setItem("Checked button", id);
-			}
-		</script>
-
 	</head>
-	<body class="nis" onload="init()">
+	<body class="nis" onload="TEST.init()">
 		<header>
 			<h1 class="title">OpenLogger, an open-source clue logger</h1>
 			<div class="header_box">
@@ -58,31 +18,31 @@
 						<h3 class="clue_scrolls_button_header">Select the tier you're opening</h3>
 						<div class="clue_scrolls_button_box">
 							<div class="clue_button_label_holder" id="clue_easy">
-								<label for="easy" id="clue_scroll_level_label" onclick="changeClueTierSpan('easy');">Easy</label>
-								<input type="radio" id="easy" name="clue_scroll_level" class="clue_scroll_level" value="easy" onclick="changeClueTierSpan('easy');">
+								<label for="easy" id="clue_scroll_level_label" onclick="TEST.changeClueTierSpan('easy');">Easy</label>
+								<input type="radio" id="easy" name="clue_scroll_level" class="clue_scroll_level" value="easy" onclick="TEST.changeClueTierSpan('easy');">
 							</div>
 							<div class="clue_button_label_holder" id="clue_medium">
-								<label for="medium" id="clue_scroll_level_label" onclick="changeClueTierSpan('medium');">Medium</label>
-								<input type="radio" id="medium" name="clue_scroll_level" class="clue_scroll_level" value="medium" onclick="changeClueTierSpan('medium');">
+								<label for="medium" id="clue_scroll_level_label" onclick="TEST.changeClueTierSpan('medium');">Medium</label>
+								<input type="radio" id="medium" name="clue_scroll_level" class="clue_scroll_level" value="medium" onclick="TEST.changeClueTierSpan('medium');">
 							</div>
 							<div class="clue_button_label_holder" id="clue_hard">
-								<label for="hard" id="clue_scroll_level_label" onclick="changeClueTierSpan('hard');">Hard</label>
-								<input type="radio" id="hard" name="clue_scroll_level" class="clue_scroll_level" value="hard" onclick="changeClueTierSpan('hard');">
+								<label for="hard" id="clue_scroll_level_label" onclick="TEST.changeClueTierSpan('hard');">Hard</label>
+								<input type="radio" id="hard" name="clue_scroll_level" class="clue_scroll_level" value="hard" onclick="TEST.changeClueTierSpan('hard');">
 							</div>
 							<div class="clue_button_label_holder" id="clue_elite">
-								<label for="elite" id="clue_scroll_level_label" onclick="changeClueTierSpan('elite');">Elite</label>
-								<input type="radio" id="elite" name="clue_scroll_level" class="clue_scroll_level" value="elite" onclick="changeClueTierSpan('elite');">
+								<label for="elite" id="clue_scroll_level_label" onclick="TEST.changeClueTierSpan('elite');">Elite</label>
+								<input type="radio" id="elite" name="clue_scroll_level" class="clue_scroll_level" value="elite" onclick="TEST.changeClueTierSpan('elite');">
 							</div>
 							<div class="clue_button_label_holder" id="clue_master">
-								<label for="master" id="clue_scroll_level_label" onclick="changeClueTierSpan('master');">Master</label>
-								<input type="radio" id="master" name="clue_scroll_level" class="clue_scroll_level" value="master" onclick="changeClueTierSpan('master');">
+								<label for="master" id="clue_scroll_level_label" onclick="TEST.changeClueTierSpan('master');">Master</label>
+								<input type="radio" id="master" name="clue_scroll_level" class="clue_scroll_level" value="master" onclick="TEST.changeClueTierSpan('master');">
 							</div>
 						</div>
 					</div>
 					<div class="main_buttons" id="top">
-						<div id="csv_button" class="nisbutton" onclick="refresh();"><!--exporttocsv()--><strike>Export to CSV</strike></div>
-						<div id="clear_button" class="nisbutton" onclick="cleardb();"><strike>Clear Database</strike></div>
-						<div id="docapturebutton" class="nisbutton" onclick="firstFunction();"><!--docapture()-->Capture Rewards</div>
+						<div id="csv_button" class="nisbutton" onclick="TEST.refresh();"><!--exporttocsv()--><strike>Export to CSV</strike></div>
+						<div id="clear_button" class="nisbutton" onclick="TEST.cleardb();"><strike>Clear Database</strike></div>
+						<div id="docapturebutton" class="nisbutton" onclick="TEST.capture();">Capture Rewards</div>
 					</div>
 				</div>
 				<div class="value_box">
