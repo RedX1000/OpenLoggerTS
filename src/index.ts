@@ -6,6 +6,7 @@ import * as resemble from "resemblejs";
 import * as lsdb from '../JSONs/LocalStorageInit.json';
 import * as items from '../JSONs/ItemsAndImages.json';
 import * as fs from "fs";
+import { fail } from "assert";
 
 //tell webpack to add index.html and appconfig.json to output
 require("!file-loader?name=[name].[ext]!./index.html");
@@ -102,24 +103,22 @@ function findtrailComplete(img: ImgRef) {
 	console.log("About to run array...")
 	let crops = new Array<ImageData>(9)
 	var x1 = loc[0].x - 1
-	var y1 = loc[0].y + 39
-	var x2 = loc[0].x + 1
-	var y2 = loc[0].y - 136
 	for(let i = 0; i < crops.length; i++) {
 		console.log("In array check...")
-		crops[i] = img.toData(x1, y1, x2, y2,);
-		alt1.overLayRect(a1lib.mixColor(255,144,0), x1, y1, x2, y2, 2000, 1);
-		
-		//var imgcanvas = document.createElement('canvas')
-		//var context = imgcanvas.getContext('2d')
-		//var imgvar = document.getElementById(rewardSlots[i])
-		//imgcanvas.width = 32;
-		//imgcanvas.height = 32;
-		//context.drawImage(crops[i], 0 , 0)
-
-		//imgvar.setAttribute('img', crops[i])
+		crops[i] = img.toData(x1, loc[0].y + 39, 32, 32,);
+		alt1.overLayRect(a1lib.mixColor(255,144,0), x1, loc[0].y + 39, 32, 32, 2000, 1);
 		x1 += 40
-		crops[i].show()
+
+		// Displaying in Rewards Capture
+		// document.getElementById(rewardSlots[i]).textContent = ""
+		// var canvas = document.createElement("canvas");
+		// var ctx = canvas.getContext("2d");
+		// var imgvar = document.createElement("img");
+		// canvas.width = crops[i].width;
+		// canvas.height = crops[i].height;
+		// ctx.putImageData(crops[i], 0, 0)
+		// imgvar.src = canvas.toDataURL();
+		// document.getElementById(rewardSlots[i]).appendChild(imgvar);
 	}
 
 }
